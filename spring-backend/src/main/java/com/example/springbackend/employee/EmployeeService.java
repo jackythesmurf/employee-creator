@@ -29,13 +29,17 @@ public class EmployeeService {
 
     }
     public boolean deletePostById(Long id) {
-        try {
-            employeeRepository.deleteById(id);
-            return true;
-        } catch (EmptyResultDataAccessException e) {
-            return false;
-        }
+        employeeRepository.deleteById(id);
+        return true;
+
     }
     // TODO update by id
+    public Optional<Employee> updateById(Long id, CreateEmployeeDto data) {
+        return this.employeeRepository.findById(id)
+                .map(existingEmployee -> {
+                    mapper.map(data, existingEmployee);
+                    return this.employeeRepository.save(existingEmployee);
+                });
+    }
 
 }

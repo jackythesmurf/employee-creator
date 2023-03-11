@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class CreateEmployeeDto {
 
-    @NotNull(message = "First Name cannot be blank")
+    @NotBlank(message = "First Name cannot be blank")
     @Size(max = 50, message = "First Name cannot exceed 50 characters")
     private String firstName;
 
