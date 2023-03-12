@@ -16,12 +16,11 @@ public class CreateEmployeeDto {
     @Size(max = 50, message = "Last Name cannot exceed 100 characters")
     private String lastName;
 
-    @NotBlank(message = "Name cannot be null")
+    @NotBlank(message = "email cannot be null")
     @Email(message = "Invalid email address")
     private String email;
 
-    @NotBlank(message = "Name cannot be null")
-//    @Pattern(regexp = "^(\\+61|0)[2-478](\\s?\\d{4}){3}$", message = "Invalid Australian phone number")
+    @NotBlank(message = "phoneNum cannot be null")
     private String phoneNum;
 
     @NotBlank(message = "Address cannot be blank")
@@ -33,7 +32,6 @@ public class CreateEmployeeDto {
     @NotNull
     private LocalDate startDate;
 
-    @NotNull
     private LocalDate finishDate;
 
     @NotNull
