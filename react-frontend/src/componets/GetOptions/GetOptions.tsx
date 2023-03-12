@@ -2,31 +2,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import styles from "./GetOptions.module.scss";
+import Employee from "../../types/Employee";
+import CreateEmployee from "../../types/CreateEmployee";
 
-type Employee = {
-	// id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
-};
-
-type CreateEmployee = Employee & {
-	startDay: string;
-	startMonth: string;
-	startYear: string;
-	finishDay: string;
-	finishMonth: string;
-	finishYear: string;
-};
 
 type GetInputPros = {
 	register: UseFormRegister<CreateEmployee>;

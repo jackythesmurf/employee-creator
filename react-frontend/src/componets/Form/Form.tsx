@@ -3,45 +3,15 @@ import { useRef } from "react";
 import { DevTool } from "@hookform/devtools";
 import styles from "./Form.module.scss";
 import { ErrorMessage } from "@hookform/error-message";
-import GetDate from "./GetDate/GetDate";
-import CreateEmployee from "../../types/CreateEmployee";
-import GetInput from "./GetInput/GetInput";
-import GetOptions from "./GetOptions/GetOptions";
-import Employee from "../../types/Employee";
-import EditEmployee from "../../container/EditEmployee";
-type Employee = {
-	// id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
-};
+import GetDate from "../GetDate/GetDate";
 
-type CreateEmployee = Employee & {
-	startDay: string;
-	startMonth: string;
-	startYear: string;
-	finishDay: string;
-	finishMonth: string;
-	finishYear: string;
-};
-interface OmitCreateEmployee: Omit<
-	CreateEmployee,
-	| "startDay"
-	| "startMonth"
-	| "startYear"
-	| "finishDay"
-	| "finishMonth"
-	| "finishYear"
->;
+import GetInput from "../GetInput/GetInput";
+import GetOptions from "../GetOptions/GetOptions";
+
+import EditEmployee from "../../container/EditEmployee";
+import Employee from "../../types/Employee";
+import CreateEmployee from "../../types/CreateEmployee";
+
 
 // pre fill test
 // const createEmployee: CreateEmployee = {
@@ -77,24 +47,22 @@ const EmployeeForm = () => {
 		// defaultValues: createEmployee
 	});
 	const onSubmit = (employeeData: CreateEmployee) => {
-		const employee: Employee = {
-			...employeeData,
-		};
-		const {isLoading, error, data} = EditEmployee()
+		EditEmployee(employeeData);
 	};
 	const handleDatesUponSubmit = () => {
 		const formateStartDate = () => {
 			const date = watch("startDay");
 			const month = watch("startMonth");
 			const year = watch("startYear");
-			return `${date}-${month}-${year}`;
-		};
-		const formateFinishDate = () => {
+			const formattedDate = new Date(`${year}-${month}-${date}`).toISOString().slice(0,10);
+			return formattedDate;
+		  };
+		  const formateFinishDate = () => {
 			const date = watch("finishDay");
 			const month = watch("finishMonth");
 			const year = watch("finishYear");
-			return watch("onGoing") ? "00-00-00" : `${date}-${month}-${year}`;
-		};
+			return watch("onGoing") ? null : `${year}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`;
+		  };
 		setValue("startDate", formateStartDate(), {
 			shouldDirty: true,
 			shouldTouch: true,
@@ -104,6 +72,7 @@ const EmployeeForm = () => {
 			shouldTouch: true,
 		});
 	};
+	
 
 	return (
 		<>
@@ -215,22 +184,6 @@ const EmployeeForm = () => {
 						type="number"
 						{...register("hoursPerWeek", { required: true })}
 					/>
-
-					{/* <label htmlFor="">Status</label>
-					<input
-						className={styles.container__inputs}
-						type="radio"
-						{...register("onGoing", {
-							required: true,
-						})}
-					/>
-					<ErrorMessage
-						errors={errors}
-						name="status"
-						as={<p className={styles.container__errors}></p>}
-					/>
-
-					<input type="checkBox" /> */}
 
 					<input type="submit" onClick={handleDatesUponSubmit} />
 				</form>

@@ -1,32 +1,10 @@
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import CreateEmployee from "../../../types/CreateEmployee";
-import styles from "./GetDate.module.scss";
-type Employee = {
-	// id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
-};
+import Employee from "../../types/Employee";
+import CreateEmployee from "../../types/CreateEmployee";
 
-type CreateEmployee = Employee & {
-	startDay: string;
-	startMonth: string;
-	startYear: string;
-	finishDay: string;
-	finishMonth: string;
-	finishYear: string;
-};
+import styles from "./GetDate.module.scss";
 
 type GetDatePros = {
 	register: UseFormRegister<CreateEmployee>;
@@ -54,7 +32,7 @@ const GetDate = ({
 							{
 								required: {
 									value: !(disable || false),
-									message:"Please fill this in correctly",
+									message: "Please fill this in correctly",
 								},
 								min: {
 									value: 1,
@@ -84,7 +62,7 @@ const GetDate = ({
 							{
 								required: {
 									value: !(disable || false),
-									message:"Please fill this in correctly",
+									message: "Please fill this in correctly",
 								},
 							}
 						)}
@@ -120,7 +98,7 @@ const GetDate = ({
 							{
 								required: {
 									value: !(disable || false),
-									message:"Please fill this in correctly",
+									message: "Please fill this in correctly",
 								},
 								min: {
 									value: 1900,
