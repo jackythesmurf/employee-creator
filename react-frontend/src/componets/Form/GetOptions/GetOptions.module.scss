@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    max-width: 60vw;
+    padding-left: 10vw;
+    &__inputs{
+        padding:  20px;
+        margin: 20px;
+        margin-bottom: 10px;
+    }
+    &__errors{
+        color: red;
+        margin-top: 0;
+       margin-left:20px;
+    }
+}

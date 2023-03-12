@@ -1,0 +1,42 @@
+@mixin bottom-border {
+	// create a line at the bottom of the element
+	border-bottom: 1px solid #787878;
+}
+
+.container {
+	min-height: 100vh;
+	margin-bottom: 40px;
+	&__heading {
+		padding-top: 10vh;
+		padding-bottom: 10vh;
+		padding-left: 10vw;
+		font-size: 3rem;
+		background-color: #f7f7f7;
+	}
+	&__body {
+		padding-top: 7vh;
+		padding-left: 10vw;
+		width: 80vw;
+
+		&__addEmployee {
+			@include bottom-border;
+			display: flex;
+			position: relative;
+			padding-bottom: 6vh;
+
+			&__prompt {
+				/* styles for the prompt element */
+			}
+			&__button {
+				margin-left: 1vw;
+				position: absolute;
+				right: 0;
+			}
+		}
+		&__employee {
+			@include bottom-border;
+			padding-top: 2vh;
+			padding-bottom: 2vh;
+		}
+	}
+}
