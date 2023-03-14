@@ -17,7 +17,8 @@ type GetInputPros = {
 	errors: FieldErrors<CreateEmployee>;
 	inputField: keyof CreateEmployee;
 	placeHolder: string;
-	optionalPattern?: OptionalPattern;
+	optionalPattern?: OptionalPattern | undefined;
+	
 };
 
 const GetInput = ({
@@ -29,6 +30,7 @@ const GetInput = ({
 }: GetInputPros) => {
 	return (
 		<div className={styles.container}>
+			
 			<input
 				className={styles.container__inputs}
 				type="text"

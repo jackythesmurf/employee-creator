@@ -5,7 +5,7 @@ import "./App.css";
 import HomePage from "./componets/HomePage/HomePage";
 import EditPage from "./componets/EditPage/EditPage";
 import { QueryClient, QueryClientProvider } from "react-query";
-import fetchAllEmployee from "./container/fetchAllEmployee";
+import fetchAllEmployee from "./services/fetchAllEmployee";
 import Employee from "./types/Employee";
 function App() {
 	const [count, setCount] = useState(0);
@@ -17,13 +17,18 @@ function App() {
 	}, [data]);
 	return (
 		<BrowserRouter>
-			{!Array.isArray(employeeList) || employeeList.length === 0? (
+			{!Array.isArray(employeeList) || employeeList.length === 0 ? (
 				"Loading"
 			) : (
 				<Routes>
 					<Route
 						path="/"
-						element={<HomePage employeeList={employeeList} setEmployeeList={setEmployeeList}/>}
+						element={
+							<HomePage
+								employeeList={employeeList}
+								setEmployeeList={setEmployeeList}
+							/>
+						}
 					/>
 					<Route
 						path="/edit/:id"

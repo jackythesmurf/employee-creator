@@ -1,34 +1,38 @@
 import React, { useEffect } from "react";
 import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import styles from "./HomePage.module.scss";
-import fetchAllEmployee from "../../container/fetchAllEmployee";
+import fetchAllEmployee from "../../services/fetchAllEmployee";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Employee from "../../types/Employee";
-import DeleteEmployee from "../../container/DeleteEmployee";
+import DeleteEmployee from "../../services/DeleteEmployee";
 type HomePageProps = {
-	employeeList: Employee[]
-	setEmployeeList:React.Dispatch<React.SetStateAction<Employee[]>>
-}
+	employeeList: Employee[];
+	setEmployeeList: React.Dispatch<React.SetStateAction<Employee[]>>;
+};
 
-const HomePage = ({employeeList, setEmployeeList}: HomePageProps) => {
+const HomePage = ({ employeeList, setEmployeeList }: HomePageProps) => {
 	const { isLoading, error, data } = fetchAllEmployee();
-	const [updateList, setUpdateList] = useState()
+	const [updateList, setUpdateList] = useState();
 	const handleRemove = (id: string) => {
-		 // Filter out the employee with the matching id
-		 const newEmployeeList = employeeList.filter((employee) => employee.id !== id);
+		// Filter out the employee with the matching id
+		const newEmployeeList = employeeList.filter(
+			(employee) => employee.id !== id
+		);
 
-		 // Set the new employee list
-		 setEmployeeList(newEmployeeList);
-	   
-		 // Delete the employee from the server
-		 DeleteEmployee(id);
-	}
+		// Set the new employee list
+		setEmployeeList(newEmployeeList);
+
+		// Delete the employee from the server
+		DeleteEmployee(id);
+	};
 	return (
 		<div>
 			{error ? (
 				"error"
-			) : isLoading || typeof employeeList === 'object' && !Array.isArray(employeeList) ? (
+			) : isLoading ||
+			  (typeof employeeList === "object" &&
+					!Array.isArray(employeeList)) ? (
 				"isLoading"
 			) : (
 				<div className={styles.container}>
@@ -56,16 +60,17 @@ const HomePage = ({employeeList, setEmployeeList}: HomePageProps) => {
 							</NavLink>
 						</div>
 						<div>
-							
-							{
-							employeeList ? (
+							{employeeList ? (
 								employeeList.map((employee: Employee) => (
 									<div
 										className={
 											styles.container__body__employee
 										}
 									>
-										<EmployeeCard employee={employee} handleRemove={handleRemove}/>
+										<EmployeeCard
+											employee={employee}
+											handleRemove={handleRemove}
+										/>
 									</div>
 								))
 							) : (

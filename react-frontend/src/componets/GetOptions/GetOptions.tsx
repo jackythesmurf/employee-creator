@@ -11,11 +11,13 @@ type GetInputPros = {
 	errors: FieldErrors<CreateEmployee>;
 	inputField: keyof CreateEmployee;
 	placeHolder: string[];
+	title: string;
 };
 
-const GetOptions = ({register, errors,  inputField, placeHolder}: GetInputPros) => {
+const GetOptions = ({register, errors,  inputField, placeHolder, title}: GetInputPros) => {
 	return (
 		<div className={styles.container}>
+			<p className={styles.container__title}>{title}</p>
 			<div>
 				<input
 					type="radio"

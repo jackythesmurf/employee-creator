@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./EmployeeCard.module.scss";
 import Employee from "../../types/Employee";
 import { NavLink } from "react-router-dom";
-import DeleteEmployee from "../../container/DeleteEmployee";
-
+import DeleteEmployee from "../../services/DeleteEmployee";
 
 type EmployeeCardProps = {
 	employee: Employee;
@@ -20,30 +19,45 @@ const EmployeeCard = ({ employee, handleRemove }: EmployeeCardProps) => {
 		const diff = finish.getFullYear() - start.getFullYear();
 		return diff;
 	};
-	
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.container__details}>
-				<div  className={styles.container__details__name}>
+				<div className={styles.container__details__name}>
 					{employee.firstName} {employee.middleName}{" "}
 					{employee.lastName}
 				</div>
-				<div  className={styles.container__details__status}>
+				<div className={styles.container__details__status}>
 					{employee.status} -{" "}
 					{calculateWorkedTime(
 						employee.startDate,
 						employee.finishDate
-					)}yrs
+					)}
+					yrs
 				</div>
-				<div  className={styles.container__details_contacts}>{employee.email}</div>
+				<div className={styles.container__details_contacts}>
+					{employee.email}
+				</div>
 			</div>
 			<div className={styles.container__options}>
 				<div>
-					<NavLink className={styles.container__options__button} to={"/edit/" + employee.id}>Edit</NavLink>
+					<NavLink
+						className={styles.container__options__button}
+						to={"/edit/" + employee.id}
+					>
+						Edit
+					</NavLink>
 				</div>
 				<div>|</div>
 				<div>
-					<button onClick={()=>{handleRemove(employee.id)}} className={styles.container__options__button}>Remove</button>
+					<button
+						onClick={() => {
+							handleRemove(employee.id);
+						}}
+						className={styles.container__options__button}
+					>
+						Remove
+					</button>
 				</div>
 			</div>
 			{/* <p>id: {employee.id}</p>

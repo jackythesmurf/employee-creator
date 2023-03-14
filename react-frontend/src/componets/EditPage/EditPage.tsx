@@ -35,15 +35,11 @@ const EditPage = ({ employeeList }: EditPageProps) => {
 	const { id } = useParams();
 	const GetEmployee = () => {
 		if (employeeList) {
-			console.log(employeeList);
+			
 
 			return employeeList.find((employee) => employee.id == id);
 		}
 	};
-	if (id) {
-		const editEmployee = GetEmployee() as Employee;
-		console.log(editEmployee);
-	}
 
 	return (
 		<div className={styles.container}>

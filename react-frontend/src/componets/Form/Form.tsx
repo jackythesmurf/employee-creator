@@ -1,25 +1,23 @@
 import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
-import { useEffect, useRef, useState } from "react";
 import { DevTool } from "@hookform/devtools";
 import styles from "./Form.module.scss";
 import { ErrorMessage } from "@hookform/error-message";
 import GetDate from "../GetDate/GetDate";
-
 import GetInput from "../GetInput/GetInput";
 import GetOptions from "../GetOptions/GetOptions";
-
-import AddEmployee from "../../container/AddEmployee";
-import Employee from "../../types/Employee";
+import AddEmployee from "../../services/AddEmployee";
 import CreateEmployee from "../../types/CreateEmployee";
 import { NavLink, useParams } from "react-router-dom";
-import GetEmployee from "../../container/GetEmployee";
-import { UseQueryResult } from "react-query";
-import EditEmployee from "../../container/EditEmployee"
+import EditEmployee from "../../services/EditEmployee";
+import GetCheckBox from "../GetCheckBox/GetCheckBox";
+import FormQuestions from "./FormQuestions";
 type FromProps = {
 	editEmployee: CreateEmployee | undefined;
 };
 
 const EmployeeForm = ({ editEmployee }: FromProps) => {
+	const { GetInputList, GetDateList } = FormQuestions;
+
 	const {
 		register,
 		watch,
@@ -34,11 +32,12 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 	});
 	const onSubmit = (employeeData: CreateEmployee) => {
 		if (editEmployee) {
-			EditEmployee(employeeData)
+			EditEmployee(employeeData);
 		} else {
 			AddEmployee(employeeData);
 		}
 	};
+	
 	const handleDatesUponSubmit = () => {
 		const formateStartDate = () => {
 			const date = watch("startDay");
@@ -75,145 +74,82 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 					className={styles.container}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<h1 className={styles.container__heading}>
-						Personal Information
-					</h1>
+					{GetInputList.map((input: any, key) => {
+						return (
+							<div>
+								{key == 0 || key == 3 ? (
+									<h1 className={styles.container__heading}>
+										{key == 0
+											? "Personal Infomation"
+											: "Contact Details"}
+									</h1>
+								) : null}
+								<label className={styles.container__fieldName}>
+									{input.label}
+									{input.prompt ? (
+										<p className={styles.container__hints}>
+											{input.prompt}
+										</p>
+									) : (
+										""
+									)}
+								</label>
 
-					<label className={styles.container__fieldName}>
-						First Name
-					</label>
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"firstName"}
-						placeHolder={"Jacky"}
-					/>
-
-					<label className={styles.container__fieldName}>
-						Middle Name
-					</label>
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"middleName"}
-						placeHolder={"Zicheng"}
-					/>
-
-					<label className={styles.container__fieldName}>
-						Last Name
-					</label>
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"lastName"}
-						placeHolder={"Li"}
-					/>
-
-					<h1 className={styles.container__heading}>
-						Contact Details
-					</h1>
-					<label className={styles.container__fieldName}>Email</label>
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"email"}
-						placeHolder={"email"}
-						optionalPattern={{
-							pattern: {
-								value: /^\S+@\S+$/i,
-								message: "Must be an email",
-							},
-						}}
-					/>
-
-					<label className={styles.container__fieldName}>
-						Mobile Number
-						<br />
-						<span className={styles.container__hints}>
-							Must be an Australian Number
-						</span>
-					</label>
-
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"phoneNum"}
-						placeHolder={"0412345678"}
-						optionalPattern={{
-							pattern: {
-								value: /^((\+?61)|0)[2-478](\s?\d{4}){2}$/i, // need to change regrex
-								message: "Must be an Australia Phone Number",
-							},
-						}}
-					/>
-					<label className={styles.container__fieldName}>
-						Residental Address
-						<br />
-						<span className={styles.container__hints}>
-							Must be an Australian Address
-						</span>
-					</label>
-					<GetInput
-						register={register}
-						errors={errors}
-						inputField={"address"}
-						placeHolder={"123 Example St"}
-					/>
-
+								<GetInput
+									register={register}
+									errors={errors}
+									inputField={input.name}
+									placeHolder={input.value}
+									optionalPattern={input.validation}
+								/>
+							</div>
+						);
+					})}
 					<h1 className={styles.container__heading}>
 						Employment Status
 					</h1>
-					<label className={styles.container__fieldName}>
-						What is contract type
-					</label>
-					<GetOptions
-						register={register}
-						errors={errors}
-						inputField={"status"}
-						placeHolder={["Permanent", "Contract"]}
-					/>
+					<div>
+						<GetOptions
+							register={register}
+							errors={errors}
+							inputField={"status"}
+							placeHolder={["Permanent", "Contract"]}
+							title={"What is contract type"}
+						/>
+					</div>
 
-					<label className={styles.container__fieldName}>
-						Start Date
-					</label>
-					{/* ********* */}
-					<GetDate
-						register={register}
-						errors={errors}
-						askForStartDate={true}
-					/>
-					{/* ********* */}
-					<label className={styles.container__fieldName}>
-						Finish Date
-					</label>
-					{/* ********* */}
-					<GetDate
-						register={register}
-						errors={errors}
-						askForStartDate={false}
-						disable={watch("onGoing")}
-					/>
-					{/* ********* */}
+					{GetDateList.map((input) => {
+						return (
+							<div>
+								<label className={styles.container__fieldName}>
+									{input.label}
+								</label>
+								<GetDate
+									register={register}
+									errors={errors}
+									askForStartDate={input.askForStartDate}
+									disable={
+										input.mightDisable
+											? watch("onGoing")
+											: false
+									}
+								/>
+							</div>
+						);
+					})}
+					<div>
+						<GetCheckBox register={register}/>
+					</div>
+					<div>
+						<GetOptions
+							register={register}
+							errors={errors}
+							inputField={"workBasis"}
+							placeHolder={["Full-time", "Part-time"]}
+							title={"Is this on a full-time or part-time basis?"}
+						/>
+					</div>
 
-					<input
-						className={styles.container__checkBox}
-						type="checkbox"
-						{...register("onGoing", {})}
-					/>
-					<label className={styles.container__fieldName}>
-						On Going
-					</label>
-
-					<p className={styles.container__fieldName}>
-						Is this on a full-time or part-time basis?
-					</p>
-					<GetOptions
-						register={register}
-						errors={errors}
-						inputField={"workBasis"}
-						placeHolder={["Full-time", "Part-time"]}
-					/>
-					{/* ******************** */}
 					<div className={styles.container__hoursInputBox}>
 						<label className={styles.container__fieldName}>
 							Hours per week
