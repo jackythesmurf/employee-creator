@@ -3,8 +3,9 @@ import React from 'react'
 import { useQuery } from 'react-query'
 
 const fetchAllEmployee = () => {
-  return useQuery("getAllEmployees", () => {
-    return axios.get("http://localhost:8080/employee").then(res => res.data);
+  return useQuery("getAllEmployees", async () => {
+    const res = await axios.get("http://localhost:8080/employee");
+    return res.data;
   });
 }
 

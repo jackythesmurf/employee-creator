@@ -28,7 +28,7 @@ const GetInput = ({
 	optionalPattern,
 }: GetInputPros) => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<input
 				className={styles.container__inputs}
 				type="text"

@@ -1,5 +1,5 @@
 import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DevTool } from "@hookform/devtools";
 import styles from "./Form.module.scss";
 import { ErrorMessage } from "@hookform/error-message";
@@ -8,32 +8,18 @@ import GetDate from "../GetDate/GetDate";
 import GetInput from "../GetInput/GetInput";
 import GetOptions from "../GetOptions/GetOptions";
 
-import EditEmployee from "../../container/EditEmployee";
+import AddEmployee from "../../container/AddEmployee";
 import Employee from "../../types/Employee";
 import CreateEmployee from "../../types/CreateEmployee";
+import { NavLink, useParams } from "react-router-dom";
+import GetEmployee from "../../container/GetEmployee";
+import { UseQueryResult } from "react-query";
+import EditEmployee from "../../container/EditEmployee"
+type FromProps = {
+	editEmployee: CreateEmployee | undefined;
+};
 
-
-// pre fill test
-// const createEmployee: CreateEmployee = {
-//     firstName: "John",
-//     middleName: null,
-//     lastName: "Doe",
-//     email: "john.doe@example.com",
-//     phoneNum: "123-456-7890",
-//     address: "123 Main St, Anytown, USA",
-//     startDay: "01",
-//     startMonth: "01",
-//     startYear: "2022",
-//     finishDay: "31",
-//     finishMonth: "12",
-//     finishYear: "2022",
-//     status: "permanent",
-//     onGoing: false,
-//     hoursPerWeek: 40,
-//     workBasis: "full-time"
-//   };
-
-const EmployeeForm = () => {
+const EmployeeForm = ({ editEmployee }: FromProps) => {
 	const {
 		register,
 		watch,
@@ -43,26 +29,34 @@ const EmployeeForm = () => {
 		control,
 		formState: { errors },
 	} = useForm<CreateEmployee>({
-		// you can prefill a form using this ->
-		// defaultValues: createEmployee
+		// Set defaultValues to undefined if id is not present
+		defaultValues: editEmployee as CreateEmployee,
 	});
 	const onSubmit = (employeeData: CreateEmployee) => {
-		EditEmployee(employeeData);
+		if (editEmployee) {
+			EditEmployee(employeeData)
+		} else {
+			AddEmployee(employeeData);
+		}
 	};
 	const handleDatesUponSubmit = () => {
 		const formateStartDate = () => {
 			const date = watch("startDay");
 			const month = watch("startMonth");
 			const year = watch("startYear");
-			const formattedDate = new Date(`${year}-${month}-${date}`).toISOString().slice(0,10);
+			const formattedDate = new Date(`${year}-${month}-${date}`)
+				.toISOString()
+				.slice(0, 10);
 			return formattedDate;
-		  };
-		  const formateFinishDate = () => {
+		};
+		const formateFinishDate = () => {
 			const date = watch("finishDay");
 			const month = watch("finishMonth");
 			const year = watch("finishYear");
-			return watch("onGoing") ? null : `${year}-${month.padStart(2, '0')}-${date.padStart(2, '0')}`;
-		  };
+			return watch("onGoing")
+				? null
+				: `${year}-${month.padStart(2, "0")}-${date.padStart(2, "0")}`;
+		};
 		setValue("startDate", formateStartDate(), {
 			shouldDirty: true,
 			shouldTouch: true,
@@ -72,7 +66,6 @@ const EmployeeForm = () => {
 			shouldTouch: true,
 		});
 	};
-	
 
 	return (
 		<>
@@ -82,9 +75,13 @@ const EmployeeForm = () => {
 					className={styles.container}
 					onSubmit={handleSubmit(onSubmit)}
 				>
-					<h1>Personal Information</h1>
+					<h1 className={styles.container__heading}>
+						Personal Information
+					</h1>
 
-					<label>First Name</label>
+					<label className={styles.container__fieldName}>
+						First Name
+					</label>
 					<GetInput
 						register={register}
 						errors={errors}
@@ -92,7 +89,9 @@ const EmployeeForm = () => {
 						placeHolder={"Jacky"}
 					/>
 
-					<label>Middle Name</label>
+					<label className={styles.container__fieldName}>
+						Middle Name
+					</label>
 					<GetInput
 						register={register}
 						errors={errors}
@@ -100,7 +99,9 @@ const EmployeeForm = () => {
 						placeHolder={"Zicheng"}
 					/>
 
-					<label>Last Name</label>
+					<label className={styles.container__fieldName}>
+						Last Name
+					</label>
 					<GetInput
 						register={register}
 						errors={errors}
@@ -108,8 +109,10 @@ const EmployeeForm = () => {
 						placeHolder={"Li"}
 					/>
 
-					<h1>Contact Details</h1>
-					<label>Email</label>
+					<h1 className={styles.container__heading}>
+						Contact Details
+					</h1>
+					<label className={styles.container__fieldName}>Email</label>
 					<GetInput
 						register={register}
 						errors={errors}
@@ -123,12 +126,19 @@ const EmployeeForm = () => {
 						}}
 					/>
 
-					<label>Phone Number</label>
+					<label className={styles.container__fieldName}>
+						Mobile Number
+						<br />
+						<span className={styles.container__hints}>
+							Must be an Australian Number
+						</span>
+					</label>
+
 					<GetInput
 						register={register}
 						errors={errors}
 						inputField={"phoneNum"}
-						placeHolder={"Australian Phone Number Only"}
+						placeHolder={"0412345678"}
 						optionalPattern={{
 							pattern: {
 								value: /^((\+?61)|0)[2-478](\s?\d{4}){2}$/i, // need to change regrex
@@ -136,24 +146,36 @@ const EmployeeForm = () => {
 							},
 						}}
 					/>
-					<label>Address</label>
+					<label className={styles.container__fieldName}>
+						Residental Address
+						<br />
+						<span className={styles.container__hints}>
+							Must be an Australian Address
+						</span>
+					</label>
 					<GetInput
 						register={register}
 						errors={errors}
 						inputField={"address"}
-						placeHolder={"address"}
+						placeHolder={"123 Example St"}
 					/>
 
-					<h1>Employment Status</h1>
-					<label>What is contract type</label>
+					<h1 className={styles.container__heading}>
+						Employment Status
+					</h1>
+					<label className={styles.container__fieldName}>
+						What is contract type
+					</label>
 					<GetOptions
 						register={register}
 						errors={errors}
 						inputField={"status"}
-						placeHolder={["permanent", "contract"]}
+						placeHolder={["Permanent", "Contract"]}
 					/>
 
-					<label>Start Date</label>
+					<label className={styles.container__fieldName}>
+						Start Date
+					</label>
 					{/* ********* */}
 					<GetDate
 						register={register}
@@ -161,7 +183,9 @@ const EmployeeForm = () => {
 						askForStartDate={true}
 					/>
 					{/* ********* */}
-					<label>Finish Date</label>
+					<label className={styles.container__fieldName}>
+						Finish Date
+					</label>
 					{/* ********* */}
 					<GetDate
 						register={register}
@@ -170,22 +194,71 @@ const EmployeeForm = () => {
 						disable={watch("onGoing")}
 					/>
 					{/* ********* */}
-					<label>On Going</label>
-					<input type="checkbox" {...register("onGoing", {})} />
 
-					<label>Is this on a full-time or part-time basis?</label>
+					<input
+						className={styles.container__checkBox}
+						type="checkbox"
+						{...register("onGoing", {})}
+					/>
+					<label className={styles.container__fieldName}>
+						On Going
+					</label>
+
+					<p className={styles.container__fieldName}>
+						Is this on a full-time or part-time basis?
+					</p>
 					<GetOptions
 						register={register}
 						errors={errors}
 						inputField={"workBasis"}
-						placeHolder={["full-time", "part-time"]}
+						placeHolder={["Full-time", "Part-time"]}
 					/>
-					<input
-						type="number"
-						{...register("hoursPerWeek", { required: true })}
-					/>
-
-					<input type="submit" onClick={handleDatesUponSubmit} />
+					{/* ******************** */}
+					<div className={styles.container__hoursInputBox}>
+						<label className={styles.container__fieldName}>
+							Hours per week
+						</label>
+						<input
+							min={0}
+							className={styles.container__hoursInputBox__input}
+							type="number"
+							{...register("hoursPerWeek", {
+								required: {
+									value: true,
+									message: "Required Field",
+								},
+								min: {
+									value: 0,
+									message: "Min value is 0",
+								},
+							})}
+						/>
+						<ErrorMessage
+							errors={errors}
+							name="hoursPerWeek"
+							as={<p className={styles.container__errors}></p>}
+						/>
+					</div>
+					<div className={styles.container__finalButtons}>
+						<input
+							className={styles.container__finalButtons__submit}
+							type="submit"
+							value="Save"
+							onClick={handleDatesUponSubmit}
+						/>
+						<button
+							className={styles.container__finalButtons__cancel}
+						>
+							<NavLink
+								className={
+									styles.container__finalButtons__cancel__link
+								}
+								to="/"
+							>
+								Cancel
+							</NavLink>
+						</button>
+					</div>
 				</form>
 			}
 		</>

@@ -1,35 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import styles from "./HomePage.module.scss";
 import fetchAllEmployee from "../../container/fetchAllEmployee";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Employee from "../../types/Employee";
 
-interface Employee {
-	id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
+type HomePageProps = {
+	employeeList: Employee[]
 }
 
-const HomePage = () => {
-	const [employeeList, setEmployeeList] = useState([]);
+const HomePage = ({employeeList}: HomePageProps) => {
 	const { isLoading, error, data } = fetchAllEmployee();
 
 	return (
 		<div>
 			{error ? (
 				"error"
-			) : isLoading ? (
+			) : isLoading || typeof employeeList === 'object' && !Array.isArray(employeeList) ? (
 				"isLoading"
 			) : (
 				<div className={styles.container}>
@@ -57,8 +45,10 @@ const HomePage = () => {
 							</NavLink>
 						</div>
 						<div>
-							{data.map((employee: Employee) => {
-								return (
+							
+							{
+							employeeList ? (
+								employeeList.map((employee: Employee) => (
 									<div
 										className={
 											styles.container__body__employee
@@ -66,8 +56,10 @@ const HomePage = () => {
 									>
 										<EmployeeCard employee={employee} />
 									</div>
-								);
-							})}
+								))
+							) : (
+								<h1>LOADING</h1>
+							)}
 						</div>
 					</div>
 				</div>

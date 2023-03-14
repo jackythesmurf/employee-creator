@@ -5,8 +5,7 @@ import { useQuery } from 'react-query'
 
 
 const AddEmployee = async (employee: Employee) => {
-  const editedEmployee: Employee = {
-    id: employee.id,
+  const newEmployee: Employee = {
     firstName: employee.firstName,
     middleName: employee.middleName,
     lastName: employee.lastName,
@@ -20,8 +19,8 @@ const AddEmployee = async (employee: Employee) => {
     hoursPerWeek: employee.hoursPerWeek,
     workBasis: employee.workBasis
 
-  }
-  axios.patch(`http://localhost:8080/employee/${editedEmployee.id}`, editedEmployee)
+  } as Employee
+  axios.post('http://localhost:8080/employee', newEmployee)
   .then((response) => {
     console.log(response.data);
   })

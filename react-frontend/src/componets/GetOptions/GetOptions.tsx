@@ -15,7 +15,7 @@ type GetInputPros = {
 
 const GetOptions = ({register, errors,  inputField, placeHolder}: GetInputPros) => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<div>
 				<input
 					type="radio"
@@ -26,7 +26,7 @@ const GetOptions = ({register, errors,  inputField, placeHolder}: GetInputPros) 
                         })
                     }
 				/>
-				<label>{placeHolder[0]}</label>
+				<label className={styles.container__optionsName}>{placeHolder[0]}</label>
 			</div>
 			<div>
 				<input
@@ -38,7 +38,7 @@ const GetOptions = ({register, errors,  inputField, placeHolder}: GetInputPros) 
                         })
                     }
 				/>
-				<label>{placeHolder[1]}</label>
+				<label className={styles.container__optionsName}>{placeHolder[1]}</label>
 			</div>
             <ErrorMessage
 				errors={errors}

@@ -1,42 +1,65 @@
-import React from 'react'
-import { useParams, NavLink } from 'react-router-dom';
-import Form from '../Form/Form';
+import React from "react";
+import { useParams, NavLink } from "react-router-dom";
+import CreateEmployee from "../../types/CreateEmployee";
+import Employee from "../../types/Employee";
+import Form from "../Form/Form";
+import styles from "./EditPage.module.scss";
 
-type Employee = {
-	id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
+type EditPageProps = {
+	employeeList?: Employee[];
 };
 
+function appendDates(data: Employee): CreateEmployee {
+	const startDate = new Date(data.startDate);
+	const finishDate = data.finishDate ? new Date(data.finishDate) : new Date();
 
+	const startDay = startDate.getDate().toString().padStart(2, "0");
+	const startMonth = (startDate.getMonth() + 1).toString().padStart(2, "0");
+	const startYear = startDate.getFullYear().toString();
 
+	const finishDay = finishDate.getDate().toString().padStart(2, "0");
+	const finishMonth = (finishDate.getMonth() + 1).toString().padStart(2, "0");
+	const finishYear = finishDate.getFullYear().toString();
 
-const EditPage = () => {
-  const {id} = useParams()
-  return (
-    <div>
-      <div>
-        <NavLink to="../">
-          {"< Back"}
-        </NavLink>
-        <div>Employee Details</div>
-      </div>
-      <Form/>
-
-      
-
-    </div>
-  )
+	return {
+		...data,
+		startDay,
+		startMonth,
+		startYear,
+		finishDay,
+		finishMonth,
+		finishYear,
+	};
 }
+const EditPage = ({ employeeList }: EditPageProps) => {
+	const { id } = useParams();
+	const GetEmployee = () => {
+		if (employeeList) {
+			console.log(employeeList);
 
-export default EditPage
+			return employeeList.find((employee) => employee.id == id);
+		}
+	};
+	if (id) {
+		const editEmployee = GetEmployee() as Employee;
+		console.log(editEmployee);
+	}
+
+	return (
+		<div className={styles.container}>
+			<div>
+				<div className={styles.container__navlink}>
+					<NavLink to="/">{"< Back"}</NavLink>
+				</div>
+				<div className={styles.container__title}>Employee Details</div>
+			</div>
+			<Form
+				editEmployee={
+					id ? appendDates(GetEmployee() as Employee) : undefined
+				}
+			/>
+		</div>
+	);
+};
+
+export default EditPage;

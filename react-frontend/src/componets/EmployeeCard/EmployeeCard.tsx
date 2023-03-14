@@ -1,29 +1,49 @@
 import React from "react";
+import styles from "./EmployeeCard.module.scss";
+import Employee from "../../types/Employee";
+import { NavLink } from "react-router-dom";
 
-type Employee = {
-	id: number;
-	firstName: string;
-	middleName: string | null;
-	lastName: string;
-	email: string;
-	phoneNum: string;
-	address: string;
-	startDate: string;
-	finishDate: string;
-	status: string;
-	onGoing: boolean;
-	hoursPerWeek: number;
-	workBasis: string;
-};
 
 type EmployeeCardProps = {
 	employee: Employee;
 };
 
 const EmployeeCard = ({ employee }: EmployeeCardProps) => {
+	const calculateWorkedTime = (
+		startDate: string,
+		finishDate: string | null
+	): number => {
+		const start = new Date(startDate);
+		const finish = finishDate ? new Date(finishDate) : new Date();
+		const diff = finish.getFullYear() - start.getFullYear();
+		return diff;
+	};
 	return (
-		<div>
-			<p>id: {employee.id}</p>
+		<div className={styles.container}>
+			<div className={styles.container__details}>
+				<div  className={styles.container__details__name}>
+					{employee.firstName} {employee.middleName}{" "}
+					{employee.lastName}
+				</div>
+				<div  className={styles.container__details__status}>
+					{employee.status} -{" "}
+					{calculateWorkedTime(
+						employee.startDate,
+						employee.finishDate
+					)}yrs
+				</div>
+				<div  className={styles.container__details_contacts}>{employee.email}</div>
+			</div>
+			<div className={styles.container__options}>
+				<div>
+					<NavLink className={styles.container__options__button} to={"/edit/" + employee.id}>Edit</NavLink>
+				</div>
+				<div>|</div>
+				<div>
+					<button className={styles.container__options__button}>Remove</button>
+				</div>
+			</div>
+			{/* <p>id: {employee.id}</p>
 			<p>firstName: {employee.firstName}</p>
 			<p>middleName: {employee.middleName}</p>
 			<p>lastName: {employee.lastName}</p>
@@ -35,7 +55,7 @@ const EmployeeCard = ({ employee }: EmployeeCardProps) => {
 			<p>status: {employee.status}</p>
 			<p>onGoing: {employee.onGoing}</p>
 			<p>hoursPerWeek: {employee.hoursPerWeek}</p>
-			<p>workBasis: {employee.workBasis}</p>
+			<p>workBasis: {employee.workBasis}</p> */}
 		</div>
 	);
 };

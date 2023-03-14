@@ -20,11 +20,14 @@ const GetDate = ({
 	disable,
 }: GetDatePros) => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<div className={styles.container__date}>
 				<div className={styles.container__date__section}>
-					<label>Date</label>
+					<label className={styles.container__date__section__text}>
+						<>Date</>
+					</label>
 					<input
+						className={styles.container__date__section__inputBox}
 						disabled={disable}
 						type="number"
 						{...register(
@@ -32,7 +35,7 @@ const GetDate = ({
 							{
 								required: {
 									value: !(disable || false),
-									message: "Please fill this in correctly",
+									message: "Required Field",
 								},
 								min: {
 									value: 1,
@@ -54,15 +57,18 @@ const GetDate = ({
 					/>
 				</div>
 				<div className={styles.container__date__section}>
-					<label>Month</label>
+					<label className={styles.container__date__section__text}>
+						Month
+					</label>
 					<select
+						className={styles.container__date__section__selectBox}
 						disabled={disable}
 						{...register(
 							askForStartDate ? "startMonth" : "finishMonth",
 							{
 								required: {
 									value: !(disable || false),
-									message: "Please fill this in correctly",
+									message: "Required Field",
 								},
 							}
 						)}
@@ -89,8 +95,11 @@ const GetDate = ({
 				</div>
 
 				<div className={styles.container__date__section}>
-					<label htmlFor="">Year</label>
+					<label className={styles.container__date__section__text}>
+						Year
+					</label>
 					<input
+						className={styles.container__date__section__inputBox}
 						disabled={disable}
 						type="number"
 						{...register(
@@ -98,11 +107,11 @@ const GetDate = ({
 							{
 								required: {
 									value: !(disable || false),
-									message: "Please fill this in correctly",
+									message: "Required Field",
 								},
 								min: {
-									value: 1900,
-									message: "Min year is 1900",
+									value: 2000,
+									message: "Min year is 2000",
 								},
 								max: {
 									value: 2099,
@@ -110,7 +119,7 @@ const GetDate = ({
 								},
 							}
 						)}
-						min="1900"
+						min="2000"
 						max="2099"
 					/>
 					<ErrorMessage
@@ -123,6 +132,7 @@ const GetDate = ({
 			<div
 				{...register(askForStartDate ? "startDate" : "finishDate", {})}
 			></div>
+
 		</div>
 	);
 };
