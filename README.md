@@ -1,2 +1,2 @@
 # employee-creator
-A Full-Stack Employee Creator app, integrates a spring RESTful API and a React Typescript frontend.
+A Full-Stack Employee Creator app, integrated with Spring RESTful API and a React Typescript frontend.
