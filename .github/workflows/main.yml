@@ -1,4 +1,4 @@
-name: Run tests on push
+name: React Typescript Tests
 
 on:
   push:
