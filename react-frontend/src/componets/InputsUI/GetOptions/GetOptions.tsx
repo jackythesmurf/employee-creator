@@ -25,6 +25,7 @@ const GetOptions = ({
 			<p className={styles.container__title}>{title}</p>
 			<div>
 				<input
+					role={"radio"}
 					type="radio"
 					value={placeHolder[0]}
 					{...register(inputField, {
@@ -37,6 +38,7 @@ const GetOptions = ({
 			</div>
 			<div>
 				<input
+				role={"radio"}
 					type="radio"
 					value={placeHolder[1]}
 					{...register(inputField, {

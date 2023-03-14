@@ -5,6 +5,7 @@ const GetCheckBox = ({ register }: any) => {
 	return (
 		<div>
 			<input
+				role="checkOnGoing"
 				className={styles.container__checkBox}
 				type="checkbox"
 				{...register("onGoing", {})}

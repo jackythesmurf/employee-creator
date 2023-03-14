@@ -17,7 +17,7 @@ type GetInputPros = {
 	errors: FieldErrors<CreateEmployee>;
 	inputField: keyof CreateEmployee;
 	placeHolder: string;
-	optionalPattern?: OptionalPattern | undefined;
+	optionalPattern?: OptionalPattern | undefined
 };
 
 const GetInput = ({
@@ -30,6 +30,7 @@ const GetInput = ({
 	return (
 		<div className={styles.container}>
 			<input
+			role={"inputBox"}
 				className={styles.container__inputs}
 				type="text"
 				placeholder={placeHolder}
@@ -46,6 +47,7 @@ const GetInput = ({
 				})}
 			/>
 			<ErrorMessage
+				role={"dateBoxErrors"}
 				errors={errors}
 				name={inputField}
 				as={<p className={styles.container__errors}></p>}

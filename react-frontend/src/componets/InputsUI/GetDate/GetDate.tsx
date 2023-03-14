@@ -23,10 +23,11 @@ const GetDate = ({
 		<div className={styles.container}>
 			<div className={styles.container__date}>
 				<div className={styles.container__date__section}>
-					<label className={styles.container__date__section__text}>
+					<label role="Date" className={styles.container__date__section__text}>
 						<>Date</>
 					</label>
 					<input
+					role="dateInput"
 						className={styles.container__date__section__inputBox}
 						disabled={disable}
 						type="number"
@@ -57,10 +58,11 @@ const GetDate = ({
 					/>
 				</div>
 				<div className={styles.container__date__section}>
-					<label className={styles.container__date__section__text}>
+					<label role="Month" className={styles.container__date__section__text}>
 						Month
 					</label>
 					<select
+					role="monthInput"
 						className={styles.container__date__section__selectBox}
 						disabled={disable}
 						{...register(
@@ -95,10 +97,11 @@ const GetDate = ({
 				</div>
 
 				<div className={styles.container__date__section}>
-					<label className={styles.container__date__section__text}>
+					<label role="Year" className={styles.container__date__section__text}>
 						Year
 					</label>
 					<input
+					role="yearInput"
 						className={styles.container__date__section__inputBox}
 						disabled={disable}
 						type="number"
