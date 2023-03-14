@@ -1,5 +1,5 @@
 # employee-creator
-<img width="300" src="https://github.com/jackythesmurf/employee-creator/actions/workflows/main.yml/badge.svg"/>
+<img width="250" src="https://github.com/jackythesmurf/employee-creator/actions/workflows/main.yml/badge.svg"/>
 
 
 ## Overview:
