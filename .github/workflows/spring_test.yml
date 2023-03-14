@@ -1,4 +1,4 @@
-name: Run tests on push
+name: Spring backend Tests
 
 on:
   push:
