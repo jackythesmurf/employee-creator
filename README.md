@@ -5,10 +5,12 @@ The project involves developing a full stack app that allows users to create, vi
 
 ### Tech Stacks & Libraries:
 
-    ReactJS: for a responsive and modular frontend design.
-    TypeScript: for type-safe coding and compile-time checks.
-    SCSS: for modularized and nested styling code.
-    Java/Spring: for building, testing, and deploying backend applications.
+   - ReactJS: for a responsive and modular frontend design.
+   - TypeScript: for type-safe coding and compile-time checks.
+   - SCSS: for modularized and nested styling code.
+   - Spring: for building, testing, and deploying backend applications.
+   - Mysql: for its reliability, scalability, and ease of use, and its a relational database management system.
+
 
 ### MVP:
 The app's MVP consists of a web application with a RESTful API and a React frontend that allows users to create, view, modify, and delete employee records. The schema for employee records is flexible and left to the developer's discretion.
