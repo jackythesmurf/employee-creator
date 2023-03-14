@@ -5,14 +5,25 @@ import fetchAllEmployee from "../../container/fetchAllEmployee";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Employee from "../../types/Employee";
-
+import DeleteEmployee from "../../container/DeleteEmployee";
 type HomePageProps = {
 	employeeList: Employee[]
+	setEmployeeList:React.Dispatch<React.SetStateAction<Employee[]>>
 }
 
-const HomePage = ({employeeList}: HomePageProps) => {
+const HomePage = ({employeeList, setEmployeeList}: HomePageProps) => {
 	const { isLoading, error, data } = fetchAllEmployee();
+	const [updateList, setUpdateList] = useState()
+	const handleRemove = (id: string) => {
+		 // Filter out the employee with the matching id
+		 const newEmployeeList = employeeList.filter((employee) => employee.id !== id);
 
+		 // Set the new employee list
+		 setEmployeeList(newEmployeeList);
+	   
+		 // Delete the employee from the server
+		 DeleteEmployee(id);
+	}
 	return (
 		<div>
 			{error ? (
@@ -54,7 +65,7 @@ const HomePage = ({employeeList}: HomePageProps) => {
 											styles.container__body__employee
 										}
 									>
-										<EmployeeCard employee={employee} />
+										<EmployeeCard employee={employee} handleRemove={handleRemove}/>
 									</div>
 								))
 							) : (

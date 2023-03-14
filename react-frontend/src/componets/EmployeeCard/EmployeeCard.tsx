@@ -2,13 +2,15 @@ import React from "react";
 import styles from "./EmployeeCard.module.scss";
 import Employee from "../../types/Employee";
 import { NavLink } from "react-router-dom";
+import DeleteEmployee from "../../container/DeleteEmployee";
 
 
 type EmployeeCardProps = {
 	employee: Employee;
+	handleRemove: (id: string) => void;
 };
 
-const EmployeeCard = ({ employee }: EmployeeCardProps) => {
+const EmployeeCard = ({ employee, handleRemove }: EmployeeCardProps) => {
 	const calculateWorkedTime = (
 		startDate: string,
 		finishDate: string | null
@@ -18,6 +20,7 @@ const EmployeeCard = ({ employee }: EmployeeCardProps) => {
 		const diff = finish.getFullYear() - start.getFullYear();
 		return diff;
 	};
+	
 	return (
 		<div className={styles.container}>
 			<div className={styles.container__details}>
@@ -40,7 +43,7 @@ const EmployeeCard = ({ employee }: EmployeeCardProps) => {
 				</div>
 				<div>|</div>
 				<div>
-					<button className={styles.container__options__button}>Remove</button>
+					<button onClick={()=>{handleRemove(employee.id)}} className={styles.container__options__button}>Remove</button>
 				</div>
 			</div>
 			{/* <p>id: {employee.id}</p>

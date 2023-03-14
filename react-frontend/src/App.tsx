@@ -6,10 +6,10 @@ import HomePage from "./componets/HomePage/HomePage";
 import EditPage from "./componets/EditPage/EditPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import fetchAllEmployee from "./container/fetchAllEmployee";
-
+import Employee from "./types/Employee";
 function App() {
 	const [count, setCount] = useState(0);
-	const [employeeList, setEmployeeList] = useState(null);
+	const [employeeList, setEmployeeList] = useState<Employee[]>([]);
 	const { isLoading, error, data } = fetchAllEmployee();
 	useEffect(() => {
 		setEmployeeList(data);
@@ -17,13 +17,13 @@ function App() {
 	}, [data]);
 	return (
 		<BrowserRouter>
-			{!Array.isArray(employeeList) ? (
+			{!Array.isArray(employeeList) || employeeList.length === 0? (
 				"Loading"
 			) : (
 				<Routes>
 					<Route
 						path="/"
-						element={<HomePage employeeList={employeeList} />}
+						element={<HomePage employeeList={employeeList} setEmployeeList={setEmployeeList}/>}
 					/>
 					<Route
 						path="/edit/:id"
