@@ -7,7 +7,7 @@ import GetInput from "../InputsUI/GetInput/GetInput";
 import GetOptions from "../InputsUI/GetOptions/GetOptions";
 import AddEmployee from "../../services/AddEmployee";
 import CreateEmployee from "../../types/CreateEmployee";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import EditEmployee from "../../services/EditEmployee";
 import GetCheckBox from "../InputsUI/GetCheckBox/GetCheckBox";
 import FormQuestions from "./FormQuestions";
@@ -17,7 +17,7 @@ type FromProps = {
 
 const EmployeeForm = ({ editEmployee }: FromProps) => {
 	const { GetInputList, GetDateList } = FormQuestions;
-
+	const navigate = useNavigate();
 	const {
 		register,
 		watch,
@@ -30,12 +30,14 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 		// Set defaultValues to undefined if id is not present
 		defaultValues: editEmployee as CreateEmployee,
 	});
-	const onSubmit = (employeeData: CreateEmployee) => {
+	const onSubmit = async (employeeData: CreateEmployee) => {
 		if (editEmployee) {
-			EditEmployee(employeeData);
+			await EditEmployee(employeeData);
 		} else {
-			AddEmployee(employeeData);
+			await AddEmployee(employeeData);
 		}
+		location.reload();
+		navigate(-1)
 	};
 
 	const handleDatesUponSubmit = () => {
