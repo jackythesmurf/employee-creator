@@ -1,0 +1,23 @@
+name: Run tests on push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        cd ./react-frontend
+        npm install
+
+    - name: Run tests
+      run: |
+        cd ./react-frontend
+        npm run test
