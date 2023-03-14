@@ -35,8 +35,6 @@ const EditPage = ({ employeeList }: EditPageProps) => {
 	const { id } = useParams();
 	const GetEmployee = () => {
 		if (employeeList) {
-			
-
 			return employeeList.find((employee) => employee.id == id);
 		}
 	};
@@ -49,11 +47,13 @@ const EditPage = ({ employeeList }: EditPageProps) => {
 				</div>
 				<div className={styles.container__title}>Employee Details</div>
 			</div>
-			<Form
-				editEmployee={
-					id ? appendDates(GetEmployee() as Employee) : undefined
-				}
-			/>
+			{ (employeeList && employeeList.length > 0) || !id ? (
+				<Form
+					editEmployee={
+						id ? appendDates(GetEmployee() as Employee) : undefined
+					}
+				/>
+			) : null}
 		</div>
 	);
 };

@@ -2,8 +2,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { UseFormRegister, FieldErrors, ValidationRule } from "react-hook-form";
 import styles from "./GetInput.module.scss";
-import Employee from "../../types/Employee";
-import CreateEmployee from "../../types/CreateEmployee";
+import Employee from "../../../types/Employee";
+import CreateEmployee from "../../../types/CreateEmployee";
 
 type OptionalPattern = {
 	pattern: {
@@ -18,7 +18,6 @@ type GetInputPros = {
 	inputField: keyof CreateEmployee;
 	placeHolder: string;
 	optionalPattern?: OptionalPattern | undefined;
-	
 };
 
 const GetInput = ({
@@ -30,7 +29,6 @@ const GetInput = ({
 }: GetInputPros) => {
 	return (
 		<div className={styles.container}>
-			
 			<input
 				className={styles.container__inputs}
 				type="text"

@@ -2,9 +2,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import styles from "./GetOptions.module.scss";
-import Employee from "../../types/Employee";
-import CreateEmployee from "../../types/CreateEmployee";
-
+import Employee from "../../../types/Employee";
+import CreateEmployee from "../../../types/CreateEmployee";
 
 type GetInputPros = {
 	register: UseFormRegister<CreateEmployee>;
@@ -14,7 +13,13 @@ type GetInputPros = {
 	title: string;
 };
 
-const GetOptions = ({register, errors,  inputField, placeHolder, title}: GetInputPros) => {
+const GetOptions = ({
+	register,
+	errors,
+	inputField,
+	placeHolder,
+	title,
+}: GetInputPros) => {
 	return (
 		<div className={styles.container}>
 			<p className={styles.container__title}>{title}</p>
@@ -22,32 +27,31 @@ const GetOptions = ({register, errors,  inputField, placeHolder, title}: GetInpu
 				<input
 					type="radio"
 					value={placeHolder[0]}
-                    {
-                        ...register(inputField, {
-                            required: "This is required"
-                        })
-                    }
+					{...register(inputField, {
+						required: "This is required",
+					})}
 				/>
-				<label className={styles.container__optionsName}>{placeHolder[0]}</label>
+				<label className={styles.container__optionsName}>
+					{placeHolder[0]}
+				</label>
 			</div>
 			<div>
 				<input
 					type="radio"
 					value={placeHolder[1]}
-                    {
-                        ...register(inputField, {
-                            required: "This is required"
-                        })
-                    }
+					{...register(inputField, {
+						required: "This is required",
+					})}
 				/>
-				<label className={styles.container__optionsName}>{placeHolder[1]}</label>
+				<label className={styles.container__optionsName}>
+					{placeHolder[1]}
+				</label>
 			</div>
-            <ErrorMessage
+			<ErrorMessage
 				errors={errors}
 				name={inputField}
 				as={<p className={styles.container__errors}></p>}
 			/>
-            
 		</div>
 	);
 };

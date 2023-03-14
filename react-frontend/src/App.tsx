@@ -17,8 +17,8 @@ function App() {
 	}, [data]);
 	return (
 		<BrowserRouter>
-			{!Array.isArray(employeeList) || employeeList.length === 0 ? (
-				"Loading"
+			{!Array.isArray(employeeList) ? (
+				"Database is not yet Loaded"
 			) : (
 				<Routes>
 					<Route

@@ -2,14 +2,14 @@ import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import styles from "./Form.module.scss";
 import { ErrorMessage } from "@hookform/error-message";
-import GetDate from "../GetDate/GetDate";
-import GetInput from "../GetInput/GetInput";
-import GetOptions from "../GetOptions/GetOptions";
+import GetDate from "../InputsUI/GetDate/GetDate";
+import GetInput from "../InputsUI/GetInput/GetInput";
+import GetOptions from "../InputsUI/GetOptions/GetOptions";
 import AddEmployee from "../../services/AddEmployee";
 import CreateEmployee from "../../types/CreateEmployee";
 import { NavLink, useParams } from "react-router-dom";
 import EditEmployee from "../../services/EditEmployee";
-import GetCheckBox from "../GetCheckBox/GetCheckBox";
+import GetCheckBox from "../InputsUI/GetCheckBox/GetCheckBox";
 import FormQuestions from "./FormQuestions";
 type FromProps = {
 	editEmployee: CreateEmployee | undefined;
@@ -37,7 +37,7 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 			AddEmployee(employeeData);
 		}
 	};
-	
+
 	const handleDatesUponSubmit = () => {
 		const formateStartDate = () => {
 			const date = watch("startDay");
@@ -138,7 +138,7 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 						);
 					})}
 					<div>
-						<GetCheckBox register={register}/>
+						<GetCheckBox register={register} />
 					</div>
 					<div>
 						<GetOptions

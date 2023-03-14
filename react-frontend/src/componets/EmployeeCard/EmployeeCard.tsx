@@ -60,19 +60,6 @@ const EmployeeCard = ({ employee, handleRemove }: EmployeeCardProps) => {
 					</button>
 				</div>
 			</div>
-			{/* <p>id: {employee.id}</p>
-			<p>firstName: {employee.firstName}</p>
-			<p>middleName: {employee.middleName}</p>
-			<p>lastName: {employee.lastName}</p>
-			<p>email: {employee.email}</p>
-			<p>phoneNum: {employee.phoneNum}</p>
-			<p>address: {employee.address}</p>
-			<p>startDate: {employee.startDate}</p>
-			<p>finishDate: {employee.finishDate}</p>
-			<p>status: {employee.status}</p>
-			<p>onGoing: {employee.onGoing}</p>
-			<p>hoursPerWeek: {employee.hoursPerWeek}</p>
-			<p>workBasis: {employee.workBasis}</p> */}
 		</div>
 	);
 };

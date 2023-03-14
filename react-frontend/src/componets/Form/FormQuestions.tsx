@@ -20,7 +20,7 @@ const GetInputList = [
         value: "sam.riley@gmail.com",
         validation: {
             pattern: {
-                value: /^\\S+@\\S+$/i,
+                value:/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                 message: "Must be an email",
             },
         },

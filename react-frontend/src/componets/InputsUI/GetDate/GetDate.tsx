@@ -1,8 +1,8 @@
 import { ErrorMessage } from "@hookform/error-message";
 import React from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import Employee from "../../types/Employee";
-import CreateEmployee from "../../types/CreateEmployee";
+import Employee from "../../../types/Employee";
+import CreateEmployee from "../../../types/CreateEmployee";
 
 import styles from "./GetDate.module.scss";
 
@@ -132,7 +132,6 @@ const GetDate = ({
 			<div
 				{...register(askForStartDate ? "startDate" : "finishDate", {})}
 			></div>
-
 		</div>
 	);
 };

@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./GetCheckBox.module.scss"
+import styles from "./GetCheckBox.module.scss";
 
-const GetCheckBox = ({register}: any) => {
+const GetCheckBox = ({ register }: any) => {
 	return (
 		<div>
 			<input
