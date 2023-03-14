@@ -1,4 +1,5 @@
 # employee-creator
+https://github.com/jackythesmurf/employee-creator/actions/workflows/main.yml/badge.svg
 
 ## Overview:
 The project involves developing a full stack app that allows users to create, view, modify, and delete employee records. The frontend of the app is developed in ReactJS using TypeScript and SCSS, while the backend is developed in Java using the Spring framework. The app is designed to be RESTful, allowing for seamless communication between the frontend and backend.
