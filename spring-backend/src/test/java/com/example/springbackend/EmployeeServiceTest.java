@@ -56,12 +56,9 @@ public class EmployeeServiceTest {
         CreateEmployeeDto createEmployeeDto = new CreateEmployeeDto();
         employee.setFirstName(createEmployeeDto.getFirstName());
         employee.setLastName(createEmployeeDto.getLastName());
-
         when(modelMapper.map(createEmployeeDto, Employee.class)).thenReturn(employee);
         when(employeeRepository.save(employee)).thenReturn(employee);
-
         Employee createdEmployee = employeeService.create(createEmployeeDto);
-
         assertEquals(employee, createdEmployee);
         verify(employeeRepository, times(1)).save(employee);
     }
@@ -101,56 +98,70 @@ public class EmployeeServiceTest {
         ));
 
         when(employeeRepository.findAll()).thenReturn(employeeList);
-
         List<Employee> result = employeeService.findAll();
-
         assertEquals(employeeList, result);
         verify(employeeRepository, times(1)).findAll();
     }
-//
-//    @Test
-//    public void testFindEmployeeById() {
-//
-//
-//
-//        Optional<Employee> optionalEmployee = Optional.of(employee);
-//
-//        when(employeeRepository.findById(1L)).thenReturn(optionalEmployee);
-//
-//        Optional<Employee> result = employeeService.findById(1L);
-//
-//        assertEquals(optionalEmployee, result);
-//        verify(employeeRepository, times(1)).findById(1L);
-//    }
-//
-//    @Test
-//    public void testDeleteEmployeeById() {
-//        Long id = 1L;
-//
-//        doNothing().when(employeeRepository).deleteById(id);
-//
-//        boolean result = employeeService.deletePostById(id);
-//
-//        assertTrue(result);
-//        verify(employeeRepository, times(1)).deleteById(id);
-//    }
-//
-//    @Test
-//    public void testUpdateEmployeeById() {
-//        Long id = 1L;
-//        CreateEmployeeDto createEmployeeDto = new CreateEmployeeDto("John", "Doe");
-//        Employee employee = new Employee(id, "John", "Doe");
-//        Optional<Employee> optionalEmployee = Optional.of(employee);
-//
-//        when(employeeRepository.findById(id)).thenReturn(optionalEmployee);
-//        when(modelMapper.map(createEmployeeDto, employee.getClass())).thenReturn(employee);
-//        when(employeeRepository.save(employee)).thenReturn(employee);
-//
-//        Optional<Employee> result = employeeService.updateById(id, createEmployeeDto);
-//
-//        assertEquals(optionalEmployee, result);
-//        verify(employeeRepository, times(1)).findById(id);
-//        verify(employeeRepository, times(1)).save(employee);
-//    }
+
+    @Test
+    public void testFindEmployeeById() {
+        Employee employee = new Employee(
+                1L,
+                "John",
+                "William",
+                "Smith",
+                "email@email.com",
+                "0412345678",
+                "123 example st",
+                "Full-time",
+                LocalDate.of(2022, 3, 14),
+                LocalDate.of(2022, 3, 14),
+                false,
+                "Contract",
+                35
+        );
+        Optional<Employee> optionalEmployee = Optional.of(employee);
+        when(employeeRepository.findById(1L)).thenReturn(optionalEmployee);
+        Optional<Employee> result = employeeService.findById(1L);
+        assertEquals(optionalEmployee, result);
+        verify(employeeRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void testDeleteEmployeeById() {
+        Long id = 1L;
+        doNothing().when(employeeRepository).deleteById(id);
+        boolean result = employeeService.deletePostById(id);
+        assertTrue(result);
+        verify(employeeRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    public void testUpdateEmployeeById() {
+        Long id = 1L;
+        CreateEmployeeDto createEmployeeDto = new CreateEmployeeDto();
+        Employee employee = new Employee(
+                1L,
+                "John",
+                "William",
+                "Smith",
+                "email@email.com",
+                "0412345678",
+                "123 example st",
+                "Full-time",
+                LocalDate.of(2022, 3, 14),
+                LocalDate.of(2022, 3, 14),
+                false,
+                "Contract",
+                35
+        );
+        Optional<Employee> optionalEmployee = Optional.of(employee);
+        when(employeeRepository.findById(id)).thenReturn(optionalEmployee);
+        when(employeeRepository.save(employee)).thenReturn(employee);
+        Optional<Employee> result = employeeService.updateById(id, createEmployeeDto);
+        assertEquals(optionalEmployee, result);
+        verify(employeeRepository, times(1)).findById(id);
+        verify(employeeRepository, times(1)).save(employee);
+    }
 }
 

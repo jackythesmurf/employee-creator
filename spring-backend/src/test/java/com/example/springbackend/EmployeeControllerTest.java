@@ -1,5 +1,11 @@
 package com.example.springbackend;
 
+import static org.hamcrest.core.StringContains.containsString;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.springbackend.employee.CreateEmployeeDto;
 import com.example.springbackend.employee.Employee;
@@ -16,19 +22,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 
-@ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 public class EmployeeControllerTest {
     private MockMvc mockMvc;
@@ -46,57 +46,35 @@ public class EmployeeControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(employeeController).build();
         objectMapper = new ObjectMapper();
     }
+    @Test
+    public void testGetStatus() throws Exception {
+        mockMvc.perform(get("/employee"))
+                .andExpect(status().isOk());
 
+    }
+    // Error with the below test Java 8 date/time type `java.time.LocalDate` not supported by default: add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 //    @Test
 //    public void testCreateEmployee() throws Exception {
 //        CreateEmployeeDto employeeDto = new CreateEmployeeDto();
+//        employeeDto.setAddress("123 example st");
+//        employeeDto.setEmail("test@example.com");
+//        employeeDto.setFinishDate(LocalDate.of(2023, 3, 14));
+//        employeeDto.setStartDate(LocalDate.of(2023, 3, 14));
+//        employeeDto.setWorkBasis("Contract");
+//        employeeDto.setFirstName("John");
+//        employeeDto.setLastName("Doe");
+//        employeeDto.setMiddleName("William");
+//        employeeDto.setStatus("Full-time");
+//        employeeDto.setPhoneNum("0412345678");
+//        employeeDto.setOnGoing(false);
+//        employeeDto.setHoursPerWeek(35);
 //
-//        Employee employee = new Employee();
-//        employee.setId(1L);
-//        employee.setFirstName(employeeDto.getFirstName());
-//        employee.setLastName(employeeDto.getLastName());
-//        employee.setEmail(employeeDto.getEmail());
-//
-//        Mockito.when(employeeService.create(any(CreateEmployeeDto.class))).thenReturn(employee);
-//
-//        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/employee")
+//        mockMvc.perform(post("/employee")
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .content(objectMapper.writeValueAsString(employeeDto)))
-//                .andExpect(MockMvcResultMatchers.status().isCreated())
-//                .andReturn();
-//
-//        String responseBody = mvcResult.getResponse().getContentAsString();
-//        Employee responseEmployee = objectMapper.readValue(responseBody, Employee.class);
-//
-//        assert responseEmployee.getId().equals(1L);
-//        assert responseEmployee.getFirstName().equals(employeeDto.getFirstName());
-//        assert responseEmployee.getLastName().equals(employeeDto.getLastName());
-//        assert responseEmployee.getEmail().equals(employeeDto.getEmail());
-//
-//        Mockito.verify(employeeService, Mockito.times(1)).create(any(CreateEmployeeDto.class));
-//    }
-//
-//    @Test
-//    public void testFindAllEmployees() throws Exception {
-//        List<Employee> employees = new ArrayList<>();
-//        employees.add(new Employee());
-//        employees.add(new Employee());
-//
-//        Mockito.when(employeeService.findAll()).thenReturn(employees);
-//
-//        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/employee"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andReturn();
-//
-//        String responseBody = mvcResult.getResponse().getContentAsString();
-//        List<Employee> responseEmployees = objectMapper.readValue(responseBody, objectMapper.getTypeFactory().constructCollectionType(List.class, Employee.class));
-//
-//        assert responseEmployees.size() == 2;
-//        assert responseEmployees.get(0).getId().equals(1L);
-//        assert responseEmployees.get(0).getFirstName().equals("John");
-//        assert responseEmployees.get(0).getLastName().equals("Doe");
-//        assert responseEmployees.get(0).getEmail().equals("johndoe@example.com");
-//
-//        Mockito.verify(employeeService, Mockito.times(1)).findAll();
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.firstName").value("John"))
+//                .andExpect(jsonPath("$.lastName").value("Doe"))
+//                .andExpect(jsonPath("$.email").value("test@example.com"));
 //    }
 }
