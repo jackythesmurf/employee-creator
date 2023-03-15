@@ -1,23 +1,23 @@
-name: Spring backend Tests
+name: Spring Backend Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-#     - name: Build application
-#       run: |
-#         cd ./spring-backend
-#         ./mvnw clean package -DskipTests
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: '17'
 
-    - name: Run tests
-      run: |
-        cd ./spring-backend
-        ./mvnw test
+    - name: Build with Maven
+      run: mvn -B package --file ./spring-backend/pom.xml -DskipTests
+
+    - name: Run tests with Maven
+      run: mvn test --file ./spring-backend/pom.xml
