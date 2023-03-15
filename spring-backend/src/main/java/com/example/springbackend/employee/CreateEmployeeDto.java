@@ -44,6 +44,9 @@ public class CreateEmployeeDto {
     @Min (value = 0)
     private Integer hoursPerWeek;
 
+    public CreateEmployeeDto() {
+    }
+
     public String getFirstName() {
         return firstName;
     }
