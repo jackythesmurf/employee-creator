@@ -12,10 +12,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build application
-      run: |
-        cd ./spring-backend
-        ./mvnw clean package -DskipTests
+#     - name: Build application
+#       run: |
+#         cd ./spring-backend
+#         ./mvnw clean package -DskipTests
 
     - name: Run tests
       run: |
