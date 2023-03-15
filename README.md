@@ -1,4 +1,4 @@
-# employee-creator
+# Employee Creator full-stack application
 <img width="250" src="https://github.com/jackythesmurf/employee-creator/actions/workflows/main.yml/badge.svg"/>
 <img width="250" src="https://github.com/jackythesmurf/employee-creator/actions/workflows/spring_test.yml/badge.svg"/>
 
