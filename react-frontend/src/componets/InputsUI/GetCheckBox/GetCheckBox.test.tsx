@@ -13,19 +13,18 @@ describe("GetCheckBox", () => {
 		expect(label).toBeInTheDocument();
 	});
 
-    it("should toggle the checkbox value when clicked", () => {
-        const registerMock = vi.fn();
-        render(<GetCheckBox register={registerMock} />);
-        const checkbox = screen.getByRole("checkOnGoing") as HTMLInputElement;
-    
-        // Verify that the initial value of the checkbox is false
-        expect(checkbox.checked).toBe(false);
-    
-        // Simulate a click event on the checkbox
-        fireEvent.click(checkbox);
-    
-        // Verify that the value of the checkbox has changed to true
-        expect(checkbox.checked).toBe(true);
-    
-      });
+	it("should toggle the checkbox value when clicked", () => {
+		const registerMock = vi.fn();
+		render(<GetCheckBox register={registerMock} />);
+		const checkbox = screen.getByRole("checkOnGoing") as HTMLInputElement;
+
+		// Verify that the initial value of the checkbox is false
+		expect(checkbox.checked).toBe(false);
+
+		// Simulate a click event on the checkbox
+		fireEvent.click(checkbox);
+
+		// Verify that the value of the checkbox has changed to true
+		expect(checkbox.checked).toBe(true);
+	});
 });

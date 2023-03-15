@@ -31,13 +31,20 @@ const EmployeeForm = ({ editEmployee }: FromProps) => {
 		defaultValues: editEmployee as CreateEmployee,
 	});
 	const onSubmit = async (employeeData: CreateEmployee) => {
-		if (editEmployee) {
-			await EditEmployee(employeeData);
-		} else {
-			await AddEmployee(employeeData);
+		try {
+			if (editEmployee) {
+				await EditEmployee(employeeData);
+			} else {
+				await AddEmployee(employeeData);
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setTimeout(() => {
+				location.reload();
+				navigate(-1);
+			}, 1000); // Delay by 1 second (1000 milliseconds)
 		}
-		location.reload();
-		navigate(-1)
 	};
 
 	const handleDatesUponSubmit = () => {
