@@ -54,7 +54,6 @@ public class EmployeeServiceTest {
                 35
         );
         CreateEmployeeDto createEmployeeDto = new CreateEmployeeDto();
-        employee.setId(1L);
         employee.setFirstName(createEmployeeDto.getFirstName());
         employee.setLastName(createEmployeeDto.getLastName());
 
@@ -66,20 +65,48 @@ public class EmployeeServiceTest {
         assertEquals(employee, createdEmployee);
         verify(employeeRepository, times(1)).save(employee);
     }
-//
-//    @Test
-//    public void testFindAllEmployees() {
-//        List<Employee> employeeList = new ArrayList<>();
-//        employeeList.add(new Employee(1L, "John", "Doe"));
-//        employeeList.add(new Employee(2L, "Jane", "Doe"));
-//
-//        when(employeeRepository.findAll()).thenReturn(employeeList);
-//
-//        List<Employee> result = employeeService.findAll();
-//
-//        assertEquals(employeeList, result);
-//        verify(employeeRepository, times(1)).findAll();
-//    }
+
+    @Test
+    public void testFindAllEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(new Employee(
+                1L,
+                "Jacky",
+                "Zicheng",
+                "Li",
+                "email@email.com",
+                "0412345678",
+                "123 example st",
+                "Full-time",
+                LocalDate.of(2022, 3, 14),
+                LocalDate.of(2022, 3, 14),
+                false,
+                "Contract",
+                35
+        ));
+        employeeList.add(new Employee(
+                1L,
+                "John",
+                "William",
+                "Smith",
+                "email@email.com",
+                "0412345678",
+                "123 example st",
+                "Full-time",
+                LocalDate.of(2022, 3, 14),
+                LocalDate.of(2022, 3, 14),
+                false,
+                "Contract",
+                35
+        ));
+
+        when(employeeRepository.findAll()).thenReturn(employeeList);
+
+        List<Employee> result = employeeService.findAll();
+
+        assertEquals(employeeList, result);
+        verify(employeeRepository, times(1)).findAll();
+    }
 //
 //    @Test
 //    public void testFindEmployeeById() {
