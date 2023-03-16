@@ -33,7 +33,7 @@ public class EmployeeService {
         return true;
 
     }
-    // TODO update by id
+
     public Optional<Employee> updateById(Long id, CreateEmployeeDto data) {
         return this.employeeRepository.findById(id)
                 .map(existingEmployee -> {

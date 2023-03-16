@@ -63,6 +63,10 @@ public class Employee {
         this.hoursPerWeek = hoursPerWeek;
     }
 
+    public Employee() {
+
+    }
+
     public Long getId() {
         return id;
     }
