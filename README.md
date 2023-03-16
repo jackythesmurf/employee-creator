@@ -36,7 +36,7 @@ You app should now be connected and running
    - Spring: for building, testing, and deploying backend RESTful applicatioins.
    - Mysql: for its reliability, scalability, and ease of use being a relational database management system.
    - React Hook Forms: for efficient management of error messages and streamline the form submission process. This not only enhanced the user experience but also improved the overall functionality of the application.
-   - Vitest & Sping test: for a combination for testing both the frontend and backend components of the React TypeScript and Spring project, ensuring good standard quality and reliability of application.
+   - Vitest & Sping test: for testing both the frontend and backend components of the React TypeScript and Spring project, ensuring good standard quality and reliability of application.
    - Github Workflow actions: for continuous integration to automate software workflows by running tests on every code change.
    - Dockerfile (to be implemented): for consistent and isolated environment for the application to run in, making it easier to deploy the application across multiple platforms and ensure that it runs reliably in different environments.
    
