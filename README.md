@@ -5,6 +5,8 @@
 The project involves developing a full stack app that allows users to create, view, modify, and delete employee records. The frontend of the app is developed in ReactJS using TypeScript and SCSS, while the backend is developed in Java using the Spring framework. The app is designed to be RESTful, allowing for seamless communication between the frontend and backend.
 
 ## To run app
+<B>Note:</b> I have dockerized this project, if you install docker and compose it, it can run on your machine without extra configs or installations
+
 1) Initialise Mysql database of name `employee_creator`
 ```
 CREATE DATABASE employee_creator
