@@ -1,0 +1,2 @@
+CREATE DATABASE employee_creator;
+USE employee_creator
