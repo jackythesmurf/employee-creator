@@ -40,14 +40,14 @@ You app should now be connected and running
    - React Hook Forms: for efficient management of error messages and streamline the form submission process. This not only enhanced the user experience but also improved the overall functionality of the application.
    - Vitest & Sping test: for testing both the frontend and backend components of the React TypeScript and Spring project, ensuring good standard quality and reliability of application.
    - Github Workflow actions: for continuous integration to automate software workflows by running tests on every code change.
-   - Dockerfile (to be implemented): for consistent and isolated environment for the application to run in, making it easier to deploy the application across multiple platforms and ensure that it runs reliably in different environments.
+   - Dockerfile: for consistent and isolated environment for the application to run in, making it easier to deploy the application across multiple platforms and ensure that it runs reliably in different environments.
    
    
 ### MVP:
 The app's MVP consists of a web application with a RESTful API and a React frontend that allows users to create, view, modify, and delete employee records. 
 
 ## The challenges faced, and what I learnt
-Throughout the process of building my full-stack application, I gained a comprehensive understanding of how to seamlessly integrate Restful APIs with frontend projects. This project served as a valuable learning experience for industry-standard development practices and concepts, including Continuous Integration/Continuous Deployment (CI/CD) with GitHub Workflow Actions and Docker. By using GitHub Workflow Actions, I automated testing, and saved time by eliminating the need for manual testing. Docker facilitated seamless deployment across all devices, allowing the web application to run seamlessly across multiple devices. (Dockerfile is currently being worked on)
+Throughout the process of building my full-stack application, I gained a comprehensive understanding of how to seamlessly integrate Restful APIs with frontend projects. This project served as a valuable learning experience for industry-standard development practices and concepts, including Continuous Integration/Continuous Deployment (CI/CD) with GitHub Workflow Actions and Docker. By using GitHub Workflow Actions, I automated testing, and saved time by eliminating the need for manual testing. Docker facilitated seamless deployment across all devices, allowing the web application to run seamlessly across multiple devices.
 
 Despite the progress, I am currently facing the challenge of learning how to deploy and host my web application. However, I am determined to overcome this challenge by exploring tools such as AWS and Azure, enabling me to enhance my knowledge of cloud deployment and hosting. I am confident that by taking on this challenge, I will further expand my skillset and be better equipped to develop future projects.
 
