@@ -28,7 +28,6 @@ npm run dev
 ```
 You app should now be connected and running 
 
-*Currently working on a Dockerized container to simplify the process*
 
 ### Tech Stacks & Libraries:
 
